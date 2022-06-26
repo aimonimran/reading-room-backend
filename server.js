@@ -17,9 +17,7 @@ app.post('/users', async (req, res) => {
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
         const user = {name: req.body.name, password: hashedPassword}
         users.push(user)
-        console.log("🚀 ~ file: server.js ~ line 18 ~ app.post ~ user", user)
-        res.status(201).send()
-        
+        return res.status(201).send(`Welcome, ${user.name}!`)
     } catch {
         res.status(500),send()
     }
@@ -32,7 +30,7 @@ app.post('/users/login', async (req, res) => {
     }
     try {
         if (await bcrypt.compare(req.body.password, user.password)) {
-            res.send('Logged in')
+            res.send(`Welcome, ${user.name}!`)
         } else {
             return res.status(400).send('Incorrect Password!')
         }
