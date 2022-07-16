@@ -1,12 +1,19 @@
-const express = require('express')
-const cors = require('cors')
-const app = express()
-const bcrypt = require('bcrypt')
+const express = require('express');
+const app = express();
+const cors = require('cors');
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
-app.use(express.json())
-app.use(cors())
+app.use(express.json());
+app.use(cors());
 
-const users = []
+mongoose.connect('mongodb://localhost/reading-room')
+.then(() => console.log('Connected to MongoDB successfuly...'))
+.catch((err) => console.log('Cannot connect to MongoDB'));
+
+app.use('/', require('./routes/storyModels'));
+
+const users = [];
 
 app.get('/users', (req, res) => {
     res.json(users)
@@ -32,7 +39,7 @@ app.post('/users/login', async (req, res) => {
         if (await bcrypt.compare(req.body.password, user.password)) {
             res.send(`Welcome, ${user.name}!`)
         } else {
-            return res.status(400).send('Incorrect Password!')
+            return res.status(400).send('Incorrect username or password.')
         }
     } catch {
         res.status(500).send()
@@ -40,6 +47,5 @@ app.post('/users/login', async (req, res) => {
 })
 
 app.listen(4000, () => {
-    console.log('server started')
+    console.log('Express server is running on port 4000.');
 }) 
-
