@@ -26,7 +26,7 @@ app.post('/users', async (req, res) => {
         users.push(user)
         return res.status(201).send(`Welcome, ${user.name}!`)
     } catch {
-        res.status(500),send()
+        res.status(500).send()
     }
 })
 
