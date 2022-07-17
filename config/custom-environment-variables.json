@@ -1,0 +1,4 @@
+{
+    "jwtPrivateKey": "process.env.JWT_KEY"
+}
+
