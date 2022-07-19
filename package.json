@@ -7,9 +7,6 @@
     "dev": "nodemon server.js",
     "start": "node server.js"
   },
-  "keywords": [
-    "heroku"
-  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
